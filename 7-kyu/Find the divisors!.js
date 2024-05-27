@@ -8,15 +8,36 @@
  divisors(25); // should return [5]
  divisors(13); // should return "13 is prime"
 
- Reflection:
- Need to think of a better algorithm. No need to check every other i like the program.
  */
 
+/*
+ Reflection:
+ Need to think of a better algorithm. No need to check every other i.
+ 
+ function divisors(integer) {
+   let arr = []
+   for (let i = 2; i < integer; i++) {
+     if (integer % i === 0) {
+       arr.push(i)}}
+   if (arr.length === 0) {return `${integer} is prime`}
+   else {return arr}
+ };
+ */
+
+// Updated version with a better algorithm. It saves the loop many times especially for a large number.
+// Note: An empty array is a truthy value not falsy.
 function divisors(integer) {
-  let arr = []
-  for (let i = 2; i < integer; i++) {
-    if (integer % i === 0) {
-      arr.push(i)}}
-  if (arr.length === 0) {return `${integer} is prime`}
-  else {return arr}
+  let arr = [];
+  
+  for(let i = 2; i <= Math.sqrt(integer); i++){
+    if(integer % i === 0){
+      if(integer / i === i){
+        arr.push(i);
+      } else{
+        arr.push(i, integer / i);
+      }
+    }
+  }
+  
+  return arr.length ? arr.sort((a, b) => a - b) : `${integer} is prime`;
 };
